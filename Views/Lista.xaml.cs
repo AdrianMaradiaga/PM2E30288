@@ -19,21 +19,28 @@ public partial class Lista : ContentPage
         BindingContext = this;
     }
 
-    public void CargarNotas()
+    public async void CargarNotas()
     {
         LimpiarLista();
 
-        client.Child("Notas")
-            .AsObservable<Notas>()
-            .Subscribe(Notas =>
-            {
+        var notas = await client.Child("Notas").OnceAsync<Notas>();
 
-                if (Notas != null && Notas.Object != null && !ListaNotas.Any(n => n.Id_nota == Notas.Object.Id_nota))
-                {
-                    ListaNotas.Add(Notas.Object);
-                }
-            });
+        // Ordena las notas por fecha en orden descendente
+        var notasOrdenadas = notas.Select(nota => nota.Object)
+                                 .OrderByDescending(n => n.Fecha)
+                                 .ToList();
+
+        foreach (var nota in notasOrdenadas)
+        {
+            ListaNotas.Add(nota);
+        }
+
+        // Asigna la lista ordenada a la propiedad ListaNotas
+        BindingContext = this;
     }
+
+
+
 
 
     private async void nuevoButton_Clicked(object sender, EventArgs e)

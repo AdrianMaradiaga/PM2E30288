@@ -16,6 +16,10 @@ public partial class CrearNotaPage : ContentPage
 	private string urlAudio { get; set;}
     readonly IAudioManager _audioManager;
 	readonly IAudioRecorder _audioRecorder;
+
+    private bool isRecording = false;
+
+
     public CrearNotaPage(IAudioManager audioManager)
 	{
 		InitializeComponent();
@@ -87,13 +91,19 @@ public partial class CrearNotaPage : ContentPage
 		{
 			return;
 		}
-		if (!_audioRecorder.IsRecording)
+
+        isRecording = !isRecording;
+        if (!_audioRecorder.IsRecording)
 		{
-			await _audioRecorder.StartAsync();
+            grabarAudioButton.BackgroundColor = Color.FromRgba("#12a351");
+
+            await _audioRecorder.StartAsync();
 		}
 		else
 		{
-			var audioRecorded = await _audioRecorder.StopAsync();
+            grabarAudioButton.BackgroundColor = Color.FromRgba("#444444");
+
+            var audioRecorded = await _audioRecorder.StopAsync();
 			var player = AudioManager.Current.CreatePlayer(audioRecorded.GetAudioStream());
 			player.Play();
 
