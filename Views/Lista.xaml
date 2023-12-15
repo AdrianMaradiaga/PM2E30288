@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2E30288.Views.Lista">
+    <ScrollView>
+        <Grid Padding="12"
+              RowSpacing="12"
+              ColumnSpacing="6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Label Text="Tus notas"
+                   FontSize="Large"
+                   Grid.Row="0"
+                   Grid.Column="0" />
+            <Button Text="Nuevo"
+                    x:Name="nuevoButton"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Clicked="nuevoButton_Clicked" />
+            <CollectionView x:Name="NotasCollection"
+                            ItemsSource="{Binding ListaNotas}"
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            Margin="12">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnSpacing="12"
+                              Padding="6">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.RowSpan="2"
+                                   Source="{Binding Photo_Record}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="60"
+                                   WidthRequest="60" />
+                            <Label Grid.Column="1"
+                                   Grid.Row="0"
+                                   Text="{Binding Descripcion}" 
+                                   FontSize="Caption"/>
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ScrollView>
+    
+</ContentPage>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PM2E30288.Views.CrearNotaPage"
+             Title="Nueva nota">
+    <VerticalStackLayout Padding="12"
+                         Spacing="12">
+        <Grid VerticalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Image x:Name="imgElement"
+                   Source="dotnet_bot.png"
+                   HeightRequest="200"
+                   Aspect="AspectFit"
+                   Margin="0,0,0,10" />
+            <Button Text="Seleccionar imagen"
+                    x:Name="seleccionarImgButton"
+                    Grid.Row="1"
+                    HeightRequest="50"
+                    Margin="0,10,0,10"
+                    Clicked="seleccionarImgButton_Clicked" />
+            <Button Text="Grabar audio"
+                    x:Name="grabarAudioButton"
+                    Grid.Row="2"
+                    Margin="0,10,0,0"
+                    Clicked="grabarAudioButton_Clicked" />
+        </Grid>
+        <Entry Placeholder="Descripcion"
+               x:Name="descripcionEntry" />
+        <DatePicker x:Name="fechaPicker" />
+        <Button Text="Guardar"
+                x:Name="guardarButton"
+                Clicked="guardarButton_Clicked" />
+    </VerticalStackLayout>
+</ContentPage>
