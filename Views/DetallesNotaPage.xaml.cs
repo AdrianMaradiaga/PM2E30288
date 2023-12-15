@@ -1,5 +1,6 @@
 using Firebase.Database;
 using Firebase.Database.Query;
+using Plugin.Maui.Audio;
 using PM2E30288.Models;
 using System.Collections.ObjectModel;
 
@@ -32,6 +33,8 @@ public partial class DetallesNotaPage : ContentPage
             await Shell.Current.GoToAsync("..");
         }
     }
+
+
 
 
 

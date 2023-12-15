@@ -4,9 +4,13 @@
              x:Class="PM2E30288.Views.DetallesNotaPage"
              Title="Nota">
     <VerticalStackLayout Padding="12">
+        <Image Source="{Binding Detalle.Photo_Record}"
+               HeightRequest="200" />
         <Label Text="{Binding Detalle.Id_nota}" />
         <Label Text="{Binding Detalle.Descripcion}" />
         <Label Text="{Binding Detalle.Fecha}" />
+
+
         <Button Text="Eliminar Nota"
                 Clicked="EliminarNota_Clicked" />
     </VerticalStackLayout>
