@@ -28,16 +28,44 @@ public partial class CrearNotaPage : ContentPage
 
     private async void guardarButton_Clicked(object sender, EventArgs e)
     {
-		await client.Child("Notas").PostAsync(new Notas
-		{
-			Descripcion = descripcionEntry.Text,
-			Fecha = fechaPicker.Date,
-			Photo_Record = urlImg,
-			Audio_Record = urlAudio
-		}); 
+        // Validar que todos los campos estén llenos
+        if (string.IsNullOrWhiteSpace(descripcionEntry.Text) ||
+            fechaPicker.Date == DateTime.MinValue ||
+            string.IsNullOrWhiteSpace(urlImg) ||
+            string.IsNullOrWhiteSpace(urlAudio))
+        {
+            await DisplayAlert("Error", "Por favor, complete todos los campos antes de guardar.", "OK");
+            return;
+        }
 
+        // Crear y guardar la nota
+        var nota = new Notas
+        {
+            Descripcion = descripcionEntry.Text,
+            Fecha = fechaPicker.Date,
+            Photo_Record = urlImg,
+            Audio_Record = urlAudio
+        };
+
+        // Realizar la operación PostAsync
+        var firebaseObject = await client.Child("Notas").PostAsync(nota);
+
+        // Obtener el ID asignado por Firebase desde la URL del objeto creado
+        string nuevoId = firebaseObject.Key;
+
+        // Asignar el ID a la propiedad Id_nota de la nota
+        nota.Id_nota = nuevoId;
+
+        // Actualizar la nota con el ID asignado
+        await client.Child("Notas").Child(nuevoId).PutAsync(nota);
+        Lista listaPage = new Lista();
+        listaPage.CargarNotas();
+
+        // Ir a la página anterior
         await Shell.Current.GoToAsync("..");
     }
+
+
 
     private async void seleccionarImgButton_Clicked(object sender, EventArgs e)
     {

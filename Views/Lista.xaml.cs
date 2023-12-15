@@ -3,7 +3,6 @@ using Firebase.Database.Query;
 using Firebase.Database.Streaming;
 using PM2E30288.Models;
 using System.Collections.ObjectModel;
-using Xamarin.KotlinX.Coroutines;
 
 namespace PM2E30288.Views;
 
@@ -22,18 +21,20 @@ public partial class Lista : ContentPage
 
     public void CargarNotas()
     {
-        ListaNotas.Clear();
+        LimpiarLista();
 
         client.Child("Notas")
             .AsObservable<Notas>()
             .Subscribe(Notas =>
             {
-               if(Notas != null && Notas.Object != null)
+
+                if (Notas != null && Notas.Object != null && !ListaNotas.Any(n => n.Id_nota == Notas.Object.Id_nota))
                 {
                     ListaNotas.Add(Notas.Object);
-                } 
+                }
             });
     }
+
 
     private async void nuevoButton_Clicked(object sender, EventArgs e)
     {
@@ -45,8 +46,20 @@ public partial class Lista : ContentPage
         Notas nota = e.CurrentSelection.FirstOrDefault() as Notas;
         var parametro = new Dictionary<string, object>
         {
-            ["Detalle"] = nota
+            ["Detalle"] = nota,
+
         };
         await Shell.Current.GoToAsync(nameof(DetallesNotaPage), parametro);
+    }
+
+    private void recargarButton_Clicked(object sender, EventArgs e)
+    {
+        // Al hacer clic en el botón de recarga, vuelve a cargar las notas
+        CargarNotas();
+    }
+
+    public void LimpiarLista()
+    {
+        ListaNotas.Clear();
     }
 }

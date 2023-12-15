@@ -12,7 +12,10 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="100" />
+                <!-- Cambiado a "*" para ocupar el espacio restante -->
+                <ColumnDefinition Width="Auto" />
+                <!-- Cambiado a "Auto" para ajustarse al contenido -->
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Label Text="Tus notas"
                    FontSize="Large"
@@ -23,12 +26,17 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     Clicked="nuevoButton_Clicked" />
+            <Button Text="Recargar"
+                    x:Name="recargarButton"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Clicked="recargarButton_Clicked" />
             <CollectionView x:Name="NotasCollection"
                             ItemsSource="{Binding ListaNotas}"
                             SelectionMode="Single"
                             SelectionChanged="NotasCollection_SelectionChanged"
                             Grid.Row="1"
-                            Grid.ColumnSpan="2"
+                            Grid.ColumnSpan="3"
                             Margin="12">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
