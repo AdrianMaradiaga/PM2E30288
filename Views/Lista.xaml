@@ -25,6 +25,8 @@
                     Clicked="nuevoButton_Clicked" />
             <CollectionView x:Name="NotasCollection"
                             ItemsSource="{Binding ListaNotas}"
+                            SelectionMode="Single"
+                            SelectionChanged="NotasCollection_SelectionChanged"
                             Grid.Row="1"
                             Grid.ColumnSpan="2"
                             Margin="12">

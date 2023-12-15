@@ -3,6 +3,7 @@ using Firebase.Database.Query;
 using Firebase.Database.Streaming;
 using PM2E30288.Models;
 using System.Collections.ObjectModel;
+using Xamarin.KotlinX.Coroutines;
 
 namespace PM2E30288.Views;
 
@@ -37,5 +38,15 @@ public partial class Lista : ContentPage
     private async void nuevoButton_Clicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(CrearNotaPage));
+    }
+
+    private async void NotasCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        Notas nota = e.CurrentSelection.FirstOrDefault() as Notas;
+        var parametro = new Dictionary<string, object>
+        {
+            ["Detalle"] = nota
+        };
+        await Shell.Current.GoToAsync(nameof(DetallesNotaPage), parametro);
     }
 }
